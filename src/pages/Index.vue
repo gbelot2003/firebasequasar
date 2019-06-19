@@ -1,14 +1,64 @@
+/* eslint-disable indent */
 <template>
-  <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
-  </q-page>
+  <div class="q-pa-md">
+    <div class="column">
+      <q-form
+        @submit="onSubmit"
+        @reset="onReset"
+        class="q-gutter-md"
+      >
+        <q-input
+          v-model="name"
+          label="Your name *"
+          hint="Name and surname"
+          lazy-rules
+          :rules="[ val => val && val.length > 0 || 'Please type something']"
+        />
+
+        <q-input
+          type="number"
+          v-model="age"
+          label="Your age *"
+          lazy-rules
+          :rules="[
+          val => val !== null && val !== '' || 'Please type your age',
+          val => val > 0 && val < 100 || 'Please type a real age'
+        ]"
+        />
+
+        <q-toggle v-model="accept" label="I accept the license and terms"/>
+
+        <div>
+          <q-btn label="Submit" type="submit" color="primary"/>
+          <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm"/>
+        </div>
+      </q-form>
+    </div>
+
+  </div>
+
 </template>
 
-<style>
-</style>
-
 <script>
-export default {
-  name: 'PageIndex',
-};
+  import { QForm, QInput } from 'quasar';
+
+  export default {
+    name: 'PageIndex',
+    components: { QForm, QInput },
+
+    data() {
+      return {
+        name: null,
+        age: null,
+      };
+    },
+    methods: {
+      onSubmit() { },
+
+      onReset() {
+        this.name = null;
+        this.age = null;
+      },
+    },
+  };
 </script>

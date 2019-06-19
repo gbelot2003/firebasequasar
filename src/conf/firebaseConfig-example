@@ -1,3 +1,5 @@
 export default {
   /** configuraciones de firebase **/
+  /** pega aquí las configuraciones secretas de firebase y salva el archivo como  "firebaseConfig.js"
+  Mo lo guardes con otro nombre, ya que podrian quedar expuestas tus llaves en github **/
 }

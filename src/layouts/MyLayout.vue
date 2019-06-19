@@ -25,12 +25,23 @@
     >
       <q-list>
         <q-item-label header>Menu Principal</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
+
+        <q-item clickable tag="a" href="#/">
           <q-item-section avatar>
             <q-icon name="school" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Docs</q-item-label>
+            <q-item-label>Dashboard</q-item-label>
+            <q-item-label caption>quasar.dev</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable tag="a" href="#/nuevo">
+          <q-item-section avatar>
+            <q-icon name="school" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Nuevo Registro</q-item-label>
             <q-item-label caption>quasar.dev</q-item-label>
           </q-item-section>
         </q-item>

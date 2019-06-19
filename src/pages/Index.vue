@@ -1,64 +1,64 @@
-/* eslint-disable indent */
 <template>
   <div class="q-pa-md">
     <div class="column">
-      <q-form
-        @submit="onSubmit"
-        @reset="onReset"
-        class="q-gutter-md"
-      >
-        <q-input
-          v-model="name"
-          label="Your name *"
-          hint="Name and surname"
-          lazy-rules
-          :rules="[ val => val && val.length > 0 || 'Please type something']"
-        />
-
-        <q-input
-          type="number"
-          v-model="age"
-          label="Your age *"
-          lazy-rules
-          :rules="[
-          val => val !== null && val !== '' || 'Please type your age',
-          val => val > 0 && val < 100 || 'Please type a real age'
-        ]"
-        />
-
-        <q-toggle v-model="accept" label="I accept the license and terms"/>
-
-        <div>
-          <q-btn label="Submit" type="submit" color="primary"/>
-          <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm"/>
-        </div>
-      </q-form>
+    <h4>Listado de Registros</h4>
+      <q-list>
+        <q-item clickable
+                v-for="item in employees"
+                v-bind:key="item.id"
+                class="q-my-sm"
+                tag="a"
+                :href="renderMessage(item.employee_id)"
+        >
+          <q-item-section avatar>
+            <q-icon name="school" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{ item.name }}</q-item-label>
+            <q-item-label caption>{{ item.position }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </div>
 
   </div>
-
 </template>
 
 <script>
-  import { QForm, QInput } from 'quasar';
+  import {
+    QList, QItem, QItemSection, QItemLabel,
+  } from 'quasar';
+  import db from '../conf/firebaseInit';
+
 
   export default {
     name: 'PageIndex',
-    components: { QForm, QInput },
-
+    components: {
+      QList, QItem, QItemSection, QItemLabel,
+    },
     data() {
       return {
-        name: null,
-        age: null,
+        employees: [],
       };
     },
     methods: {
-      onSubmit() { },
-
-      onReset() {
-        this.name = null;
-        this.age = null;
+      renderMessage(index) {
+        return `#/ver/${index}`;
       },
+    },
+    created() {
+      db.collection('employees').orderBy('dept').get().then((rest) => {
+        rest.forEach((doc) => {
+          const data = {
+            id: doc.id,
+            employee_id: doc.data().employee_id,
+            name: doc.data().name,
+            dept: doc.data().dept,
+            position: doc.data().position,
+          };
+          this.employees.push(data);
+        });
+      });
     },
   };
 </script>

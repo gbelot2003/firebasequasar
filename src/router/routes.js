@@ -7,6 +7,20 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
     ],
   },
+  {
+    path: '/nuevo',
+    component: () => import('layouts/MyLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/NuevoRegistro.vue') },
+    ],
+  },
+  {
+    path: '/ver/:id',
+    component: () => import('layouts/MyLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/VerRegistro.vue') },
+    ],
+  },
 ];
 
 // Always leave this as last one

@@ -17,10 +17,10 @@
         },
         created() {
           console.log(this.$route.params);
-          this.ferchData();
+          this.fetchData();
         },
         methods: {
-          ferchData() {
+          fetchData() {
             db.collection('employees')
               .where('employee_id', '==', this.$route.params.id).get()
               .then((rest) => {
